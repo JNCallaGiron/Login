@@ -2,11 +2,12 @@
 package com.mycompany.loginapp.igu;
 
 import com.mycompany.loginapp.logica.Controladora;
+import com.mycompany.loginapp.logica.Usuario;
 
-public class Principal extends javax.swing.JFrame {
+public class LoginInicial extends javax.swing.JFrame {
 
     Controladora control = null;
-    public Principal() {
+    public LoginInicial() {
         initComponents();
         control = new Controladora();
     }
@@ -117,9 +118,9 @@ public class Principal extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnLimpiar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnLogin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -149,16 +150,42 @@ public class Principal extends javax.swing.JFrame {
        txtConstrasenia.setText("");
        txtArea.setText("");
     }//GEN-LAST:event_btnLimpiarActionPerformed
-    //Login
-    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-      //traer usuario y contraseña
-     String usuario = txtUsuario.getText();
-     String contrasenia = txtConstrasenia.getText(); 
-     //Validar usuario
-    String mensaje = control.validarUsuario(usuario,contrasenia);
     
-    //una vez que las capas validen al usuario mostrar mensaje en el txtArea
-    txtArea.setText(mensaje) ;
+        //Login
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+        //traer usuario y contraseña
+        String usuario = txtUsuario.getText();
+        String contrasenia = txtConstrasenia.getText(); 
+    
+        //Validar usuario
+        Usuario usr = control.validarUsuario(usuario,contrasenia);
+        
+        //verificar que el user y contraseña existen
+        if(usr != null){
+             //validacion de rol
+            String rol  = usr.getUnRol().getNombreRol();
+            if (rol.equals("admin")){
+                PrincipalAdmin prin = new PrincipalAdmin(control);//crear constructor
+                prin.setVisible(true);
+                prin.setLocationRelativeTo(null);   
+                this.dispose();
+            }
+            if(rol.equals("user")){
+                PrincipalUser prinUser = new PrincipalUser(control);//crear constructor 
+                prinUser.setVisible(true);
+                prinUser.setLocationRelativeTo(null);
+                this.dispose();
+            }
+        }
+        else{
+            //una vez que las capas validen al usuario mostrar mensaje en el txtArea
+            txtArea.setText("Usuario o contraseña incorrectos");
+        }
+        
+       
+    
+       
+       
     }//GEN-LAST:event_btnLoginActionPerformed
 
     

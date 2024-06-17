@@ -6,6 +6,7 @@ import java.util.List;
 
 public class ControladoraPersistencia {
     UsuarioJpaController userJpa = new UsuarioJpaController();
+    RolJpaController rolJpa = new RolJpaController();
     
     //metodo creado desde la logica
     public List<Usuario> traerUsuario() {

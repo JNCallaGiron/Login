@@ -1,13 +1,13 @@
 
 package com.mycompany.loginapp;
 
-import com.mycompany.loginapp.igu.Principal;
+import com.mycompany.loginapp.igu.LoginInicial;
 
 
 public class LoginApp {
 
     public static void main(String[] args) {
-        Principal prin = new Principal ();
+        LoginInicial prin = new LoginInicial ();
         prin.setVisible(true);
         prin.setLocationRelativeTo(null);
         
