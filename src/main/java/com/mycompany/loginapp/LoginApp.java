@@ -1,16 +1,16 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- */
 
 package com.mycompany.loginapp;
 
-/**
- *
- * @author JAIRO
- */
+import com.mycompany.loginapp.igu.Principal;
+
+
 public class LoginApp {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        Principal prin = new Principal ();
+        prin.setVisible(true);
+        prin.setLocationRelativeTo(null);
+        
+      
     }
 }
