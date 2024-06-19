@@ -144,7 +144,7 @@ public class LoginInicial extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
-    //boton limpiar
+       //boton limpiar
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
        txtUsuario.setText("");
        txtConstrasenia.setText("");
@@ -154,38 +154,36 @@ public class LoginInicial extends javax.swing.JFrame {
         //Login
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         //traer usuario y contraseña
-        String usuario = txtUsuario.getText();
-        String contrasenia = txtConstrasenia.getText(); 
-    
-        //Validar usuario
-        Usuario usr = control.validarUsuario(usuario,contrasenia);
-        
-        //verificar que el user y contraseña existen
-        if(usr != null){
-             //validacion de rol
-            String rol  = usr.getUnRol().getNombreRol();
-            if (rol.equals("admin")){
-                PrincipalAdmin prin = new PrincipalAdmin(control);//crear constructor
-                prin.setVisible(true);
-                prin.setLocationRelativeTo(null);   
-                this.dispose();
-            }
-            if(rol.equals("user")){
-                PrincipalUser prinUser = new PrincipalUser(control);//crear constructor 
-                prinUser.setVisible(true);
-                prinUser.setLocationRelativeTo(null);
-                this.dispose();
-            }
+    String usuario = txtUsuario.getText();
+    String contrasenia = txtConstrasenia.getText(); 
+
+    //Validar usuario
+    Usuario usr = control.validarUsuario(usuario, contrasenia);
+    System.out.println("Usuario validado: " + usr);
+    //verificar que el user y contraseña existen
+    if (usr != null) {
+        //validacion de rol
+        String rol = usr.getUnRol().getNombreRol();
+        System.out.println("Rol del usuario: " + rol);
+        System.out.println("Inicio la verificacion");
+        if (rol.equals("admin") || rol.equals("administrador")) {
+            PrincipalAdmin prin = new PrincipalAdmin(control,usr); //crear constructor
+            prin.setVisible(true);
+            prin.setLocationRelativeTo(null);   
+            this.dispose();
+            System.out.println("Valido admin");
+        } else if (rol.equals("user") || rol.equals("usuario")) {
+            PrincipalUser prinUser = new PrincipalUser(control,usr); //crear constructor 
+            prinUser.setVisible(true);
+            prinUser.setLocationRelativeTo(null);
+            this.dispose();
+            System.out.println("Valido user");
+        } else {    
+            System.out.println("Rol desconocido: " + rol);
         }
-        else{
-            //una vez que las capas validen al usuario mostrar mensaje en el txtArea
-            txtArea.setText("Usuario o contraseña incorrectos");
-        }
-        
-       
-    
-       
-       
+    } else {
+        txtArea.setText("Usuario o contraseña incorrectos");
+    } 
     }//GEN-LAST:event_btnLoginActionPerformed
 
     
@@ -204,4 +202,5 @@ public class LoginInicial extends javax.swing.JFrame {
     private javax.swing.JPasswordField txtConstrasenia;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
+
 }

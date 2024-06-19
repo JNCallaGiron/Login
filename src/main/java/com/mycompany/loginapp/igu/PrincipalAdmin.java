@@ -2,14 +2,17 @@
 package com.mycompany.loginapp.igu;
 
 import com.mycompany.loginapp.logica.Controladora;
+import com.mycompany.loginapp.logica.Usuario;
 
 
 public class PrincipalAdmin extends javax.swing.JFrame {
 Controladora control;
+Usuario usr;
    
-    public PrincipalAdmin(Controladora control) {//agrego al constructor para acceder a la logica
+    public PrincipalAdmin(Controladora control, Usuario usr) {//agrego al constructor para acceder a la logica
         initComponents();
         this.control = control;
+        this.usr = usr;
     }
 
    
@@ -30,6 +33,11 @@ Controladora control;
         txtNombreUser = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 30)); // NOI18N
         jLabel1.setText("Sistema Administrador de Usuarios");
@@ -69,9 +77,14 @@ Controladora control;
 
         btnSalir.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
 
         txtNombreUser.setEditable(false);
-        txtNombreUser.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        txtNombreUser.setFont(new java.awt.Font("Dialog", 3, 24)); // NOI18N
         txtNombreUser.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -153,6 +166,14 @@ Controladora control;
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCrearActionPerformed
+    //metodo para fijat mensaje al abrir la pantalla
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        this.txtNombreUser.setText(usr.getNombre());
+    }//GEN-LAST:event_formWindowOpened
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_btnSalirActionPerformed
 
     
 
